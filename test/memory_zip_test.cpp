@@ -1,8 +1,8 @@
 #include "catch.hpp"
 
-#include <zipper/zipper.h>
-#include <zipper/unzipper.h>
-#include <zipper/tools.h>
+#include <zipper.h>
+#include <unzipper.h>
+#include <tools.h>
 
 #include <vector>
 #include <fstream>
