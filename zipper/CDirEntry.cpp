@@ -98,7 +98,7 @@ std::string CDirEntry::baseName(const std::string & path)
 #ifdef WIN32 // WIN32 also understands '/' as the separator.
 
   if (start == std::string::npos)
-    start = path.find_last_of("/");
+    start = path.find_last_of("/\\");
 
 #endif
 
@@ -119,7 +119,7 @@ std::string CDirEntry::fileName(const std::string & path)
 #ifdef WIN32 // WIN32 also understands '/' as the separator.
 
   if (start == std::string::npos)
-    start = path.find_last_of("/");
+    start = path.find_last_of("/\\");
 
 #endif
 
@@ -159,7 +159,7 @@ std::string CDirEntry::suffix(const std::string & path)
 #ifdef WIN32 // WIN32 also understands '/' as the separator.
 
   if (start == std::string::npos)
-    start = path.find_last_of("/");
+    start = path.find_last_of("/\\");
 
 #endif
 
@@ -453,7 +453,7 @@ bool CDirEntry::makePathRelative(std::string & absolutePath,
 
   // We need to retract to the beginning of the current directory.
   if (i != imax)
-    i = absolutePath.find_last_of('/', i) + 1;
+    i = absolutePath.find_last_of("/\\", i) + 1;
 
 #ifdef WIN32
 
