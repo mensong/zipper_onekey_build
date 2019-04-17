@@ -162,3 +162,5 @@ test/*.zip
 *.txt.user
 
 build/
+/*.opendb
+/zipper.VC.db

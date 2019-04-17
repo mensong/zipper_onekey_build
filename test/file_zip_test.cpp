@@ -14,6 +14,10 @@ using namespace zipper;
 
 SCENARIO("zipfile feed with different inputs", "[zip]")
 {
+	zipper::Zipper zip("aa.zip");
+	zip.addPath("G:\\test\\cl\\x86_amd64\\2052\\clui.dll", "Gergul\\2052\\456");
+	zip.close();
+
   GIVEN("A Zip outputed to a file")
   {
     // just in case the last test fails there
@@ -121,7 +125,7 @@ SCENARIO("zipfile feed with different inputs", "[zip]")
                   test2.close();
 
                   zipper.open();
-                  zipper.add("TestFiles");
+                  zipper.addPath("TestFiles");
                   zipper.close();
 
                   zipper::Unzipper unzipper("ziptest.zip");

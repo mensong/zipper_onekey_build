@@ -292,17 +292,19 @@ namespace zipper {
 		return m_impl->add(source, nameInZip, "", flags);
 	}
 
-	bool Zipper::add(const std::string& fileOrFolderPath, zipFlags flags)
+	bool Zipper::addPath(const std::string& fileOrFolderPath, const std::string& folderInZip/* = std::string()*/, zipFlags flags)
 	{
 		if (isDirectory(fileOrFolderPath))
 		{
-			std::string folderName = fileNameFromPath(fileOrFolderPath);
+			//std::string folderName = fileNameFromPath(fileOrFolderPath);
 			std::vector<std::string> files = filesFromDirectory(fileOrFolderPath);
 			std::vector<std::string>::iterator it = files.begin();
 			for (; it != files.end(); ++it)
 			{
 				std::ifstream input(it->c_str(), std::ios::binary);
-				std::string nameInZip = it->substr(it->rfind(folderName + CDirEntry::Separator), it->size());
+				std::string nameInZip = folderInZip.c_str();// it->substr(it->rfind(folderName + CDirEntry::Separator), it->size());
+				nameInZip += CDirEntry::Separator.c_str();
+				nameInZip += CDirEntry::fileName(*it).c_str();
 				add(input, nameInZip, flags);
 				input.close();
 			}
@@ -310,7 +312,10 @@ namespace zipper {
 		else
 		{
 			std::ifstream input(fileOrFolderPath.c_str(), std::ios::binary);
-			add(input, fileNameFromPath(fileOrFolderPath), flags);
+			std::string nameInZip = folderInZip.c_str();
+			nameInZip += CDirEntry::Separator.c_str();
+			nameInZip += CDirEntry::fileName(fileOrFolderPath).c_str();
+			add(input, nameInZip, flags);
 			input.close();
 		}
 
